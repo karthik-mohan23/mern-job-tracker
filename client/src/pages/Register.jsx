@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Register() {
   return (
     <div className="hero min-h-[90vh] bg-base-200">
@@ -66,10 +68,11 @@ function Register() {
                 className="input input-bordered"
                 required
               />
-              <label className="label mt-3">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
+              <label className="label mt-3 justify-start">
+                Already a member?
+                <Link to="/login" className="label-text-alt link link-hover">
+                  login
+                </Link>
               </label>
             </div>
             <div className="form-control mt-3">
