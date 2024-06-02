@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Landing() {
   return (
     <div className="hero min-h-[90vh] bg-base-200">
@@ -14,8 +16,12 @@ function Landing() {
             a id nisi.
           </p>
           <div className="flex gap-3">
-            <button className="btn btn-primary">Register</button>
-            <button className="btn btn-primary">Login / Demo user</button>
+            <Link to="/register" className="btn btn-primary">
+              Register
+            </Link>
+            <Link to="/login" className="btn btn-primary">
+              Login / Demo user
+            </Link>
           </div>
         </div>
       </div>
