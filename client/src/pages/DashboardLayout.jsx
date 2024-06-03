@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import sidebarLinks from "../utils/links";
 import { TfiAngleDoubleRight } from "react-icons/tfi";
 
 function DashboardLayout() {
@@ -21,14 +22,16 @@ function DashboardLayout() {
               htmlFor="my-drawer-2"
               aria-label="close sidebar"
               className="drawer-overlay"></label>
-            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content ">
               {/* Sidebar content here */}
-              <li>
-                <a>Sidebar Item 1</a>
-              </li>
-              <li>
-                <a>Sidebar Item 2</a>
-              </li>
+              {sidebarLinks.map(({ text, path, icon }) => (
+                <li key={text}>
+                  <Link to={path} className="text-lg">
+                    <span>{icon}</span>
+                    {text}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
