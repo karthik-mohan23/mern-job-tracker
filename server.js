@@ -12,8 +12,16 @@ app.get("/", function (req, res) {
 });
 
 // Not Found Middleware
+//it is specifically designed to handle requests for non-existent routes
 app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });
+});
+
+// Error Middleware
+//it is a catch-all for handling unexpected errors that occur during request processing.
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({ msg: "something went wrong" });
 });
 
 const port = process.env.PORT || 3000;
