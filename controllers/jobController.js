@@ -34,5 +34,15 @@ const createJob = async (req, res, next) => {
     next(error);
   }
 };
+const deleteJob = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Job.deleteOne({ _id: id });
+    res.status(201).json({ msg: "successfully deleted" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 
-export { getAllJobs, getJob, createJob };
+export { getAllJobs, getJob, createJob, deleteJob };
