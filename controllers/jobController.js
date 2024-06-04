@@ -1,6 +1,6 @@
 import Job from "../models/jobModel.js";
 
-const getAllJobs = async (req, res) => {
+const getAllJobs = async (req, res, next) => {
   try {
     const allJobS = await Job.find({});
     res.status(201).json(allJobS);
@@ -10,10 +10,10 @@ const getAllJobs = async (req, res) => {
   }
 };
 
-const getJob = async (req, res) => {
+const getJob = async (req, res, next) => {
   try {
-    const id = req.id;
-    const job = await Job.findById({ id });
+    const { id } = req.params;
+    const job = await Job.findById(id);
     res.status(201).json(job);
   } catch (error) {
     console.log(error);
