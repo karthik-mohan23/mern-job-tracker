@@ -24,8 +24,13 @@ app.use("*", (req, res) => {
 // Error Middleware
 //it is a catch-all for handling unexpected errors that occur during request processing.
 app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: "something went wrong" });
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
 });
 
 const port = process.env.PORT || 3000;
