@@ -44,5 +44,15 @@ const deleteJob = async (req, res, next) => {
     next(error);
   }
 };
+const updateJob = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const newJob = await Job.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(201).json(newJob);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 
-export { getAllJobs, getJob, createJob, deleteJob };
+export { getAllJobs, getJob, createJob, updateJob, deleteJob };

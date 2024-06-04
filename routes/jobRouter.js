@@ -6,9 +6,10 @@ import {
   deleteJob,
   getAllJobs,
   getJob,
+  updateJob,
 } from "../controllers/jobController.js";
 
 router.route("/").get(getAllJobs).post(createJob);
-router.route("/:id").get(getJob).delete(deleteJob);
+router.route("/:id").get(getJob).patch(updateJob).delete(deleteJob);
 
 export default router;
