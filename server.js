@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
+import jobRouter from "./routes/jobRouter.js";
 
 const app = express();
 
@@ -11,6 +12,8 @@ app.use(express.json());
 app.get("/", function (req, res) {
   res.send("Hello World");
 });
+
+app.use("/api/v1/jobs", jobRouter);
 
 // Not Found Middleware
 //it is specifically designed to handle requests for non-existent routes
