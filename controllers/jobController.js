@@ -10,6 +10,17 @@ const getAllJobs = async (req, res) => {
   }
 };
 
+const getJob = async (req, res) => {
+  try {
+    const id = req.id;
+    const job = await Job.findById({ id });
+    res.status(201).json(job);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 const createJob = async (req, res, next) => {
   try {
     const { company, position } = req.body;
@@ -24,4 +35,4 @@ const createJob = async (req, res, next) => {
   }
 };
 
-export { getAllJobs, createJob };
+export { getAllJobs, getJob, createJob };
