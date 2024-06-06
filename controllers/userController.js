@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/errorHandler.js";
-import { hashPassword } from "../utils/passwordUtils.js";
-import { UserSchema } from "../validationSchema/userSchema.js";
+import { comparePasswords, hashPassword } from "../utils/passwordUtils.js";
+import { UserLoginSchema, UserSchema } from "../validationSchema/userSchema.js";
 
 const registerUser = async (req, res, next) => {
   try {
@@ -34,13 +34,22 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const result = UserLoginSchema.safeParse(req.body);
+    if (!result.success) {
       return next(errorHandler(400, "Invalid data"));
     }
+    const { email, password } = req.body;
     const userExists = await User.findOne({ email });
     if (!userExists) {
       return next(errorHandler(400, "No user found"));
+    }
+    //compare passwords
+    const passwordsMatch = await comparePasswords(
+      password,
+      userExists.password
+    );
+    if (!passwordsMatch) {
+      return next(errorHandler(400, "Wrong password"));
     }
     res.status(201).json({ msg: "user logged in" });
   } catch (error) {

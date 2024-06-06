@@ -7,5 +7,9 @@ const UserSchema = z.object({
   password: z.string().min(6),
   location: z.string().min(3),
 });
+const UserLoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
-export { UserSchema };
+export { UserSchema, UserLoginSchema };
