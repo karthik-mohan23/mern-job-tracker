@@ -15,6 +15,10 @@ const registerUser = async (req, res, next) => {
       return next(errorHandler(400, "user already exists"));
     }
 
+    // to add an admin user
+    const isFirstAccount = (await User.countDocuments()) === 0;
+    req.body.role = isFirstAccount ? "admin" : "user";
+
     const newUser = await User.create(req.body);
     res.status(201).json(newUser);
   } catch (error) {
