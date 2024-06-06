@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import { comparePasswords, hashPassword } from "../utils/passwordUtils.js";
+import { createToken } from "../utils/tokenUtils.js";
 import { UserLoginSchema, UserSchema } from "../validationSchema/userSchema.js";
 
 const registerUser = async (req, res, next) => {
@@ -51,7 +52,13 @@ const loginUser = async (req, res, next) => {
     if (!passwordsMatch) {
       return next(errorHandler(400, "Wrong password"));
     }
-    res.status(201).json({ msg: "user logged in" });
+
+    const token = createToken({
+      userId: userExists._id,
+      role: userExists.role,
+    });
+
+    res.status(201).json(token);
   } catch (error) {
     console.log(error);
     next(error);
